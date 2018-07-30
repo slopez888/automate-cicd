@@ -1,0 +1,3 @@
+= CI example
+
+This is a generic example of a CI setup as it was used in a consulting engagement.
