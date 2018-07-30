@@ -1,0 +1,5 @@
+= Automate CI/CD =
+
+As we progress with automation, we also need to test it properly and _automatically_ before we, also automatically, push it to production. This is what this repository is about.
+
+More to come...
