@@ -4,9 +4,15 @@ This is a generic example of a CI setup as it was used in a consulting engagemen
 
 == Prerequisites ==
 
+Install some libraries:
+
 [code,bash]
 -----
 dnf install python2-junit_xml perl-XML-LibXML
 -----
 
-Your user needs to be able to ssh into localhost.
+Also, your user needs to be able to ssh into localhost.
+
+== Run tests ==
+
+To check basic functionality, run  `./call_all_test_playbooks_without_jenkins.sh`.

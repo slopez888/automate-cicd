@@ -8,13 +8,11 @@
       mode: 0755
     when: script_path is defined
 
-
 - name: Write rc 1 into rc file
   become: True
   copy:
     dest: "{{ script_dir_name }}/{{ script_name }}.rc"
     content: 1
-
 
 - name: Write stderr
   become: True
