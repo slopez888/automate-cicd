@@ -6,7 +6,7 @@ This is a generic example of a CI setup as it was used in a consulting engagemen
 
 Install some libraries:
 
-[code,bash]
+[source,bash]
 -----
 dnf install python2-junit_xml perl-XML-LibXML
 -----
