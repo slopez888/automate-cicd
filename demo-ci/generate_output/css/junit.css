@@ -1,0 +1,117 @@
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+pre.codebox {
+    border-radius: 5px;
+    box-shadow: 5px 5px #ccc;
+    max-width: 80%;
+    overflow-x: auto;
+    max-height: 20em;
+    overflow-y: auto;
+    padding: 4px;
+    background-color: #f0f0f0;
+}
+
+pre.ok {
+    border: 2px solid green;
+}
+pre.fail {
+    border: 3px solid red;
+}
+pre.skip {
+    border: 2px solid cyan;
+}
+pre.todo {
+    border: 2px solid orange;
+}
+pre.ok_todo {
+    border: 2px solid magenta;
+}
+
+ul.cases a {
+    font-family: monospace;
+}
+ul.cases li.ok, ul.cases li.ok a {
+    color: green;
+}
+ul.cases li.fail, ul.cases li.fail a {
+    color: red;
+}
+ul.cases li.todo, ul.cases li.todo a {
+    color: orange;
+}
+ul.cases li.ok_todo, ul.cases li.ok_todo a {
+    color: magenta;
+}
+ul.cases li.skip, ul.cases li.skip a {
+    color: cyan;
+}
+
+/* Style the side navigation */
+.sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+}
+
+
+/* Side navigation links */
+.sidenav a {
+    color: white;
+    padding: 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color on hover */
+.sidenav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Style the content */
+.content {
+    margin-left: 200px;
+    padding-left: 20px;
+}
+
+table.tests span.ok {
+    color: green;
+}
+table.tests span.fail {
+    color: red;
+}
+
+ul.tests li.testsuite {
+    font-size: 120%;
+}
+
+ul.hidden {
+    display: none;
+}
+
+a.linenumber:target {
+    background-color: #ccaa00;
+}
+a.line:target {
+    background-color: cyan;
+}
+
+table.tests {
+    margin: 5px;
+    border: 1px solid #bbb;
+    border-collapse: collapse;
+    box-shadow: 2px 2px 4px 1px grey;
+}
+table.tests tr th, td {
+    border: 1px solid #bbb;
+    background-color: white;
+    padding: 1px 2px 1px 2px;
+}

@@ -1,3 +1,12 @@
-= CI example
+= CI example =
 
 This is a generic example of a CI setup as it was used in a consulting engagement.
+
+== Prerequisites ==
+
+[code,bash]
+-----
+dnf install python2-junit_xml perl-XML-LibXML
+-----
+
+Your user needs to be able to ssh into localhost.
