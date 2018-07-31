@@ -1,2 +1,3 @@
 htmlreport/
-*.retry*.pdf
+*.retry
+*.pdf
