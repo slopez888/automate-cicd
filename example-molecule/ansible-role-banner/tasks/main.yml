@@ -1,0 +1,8 @@
+---
+- name: Ensure Post-Login Message of the Day file is correct
+  template:
+    src: motd.j2
+    dest: /etc/motd
+    mode: 0644
+    owner: root
+    group: root
