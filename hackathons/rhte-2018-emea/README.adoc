@@ -1,0 +1,3 @@
+= CI/CD Hackathon for EMEA RHTE 2018
+
+TODO: document the Hackathon

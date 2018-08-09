@@ -1,0 +1,5 @@
+= Hackathons preparations and results
+
+We'll put in this directory all Hackathon preparations and results, and we'll move them to the main tree as required to maintain them long term.
+
+NOTE: it's a test if it's the right approach or if we should rather put the Hackathons in a separate repo, merging only what is useful.
