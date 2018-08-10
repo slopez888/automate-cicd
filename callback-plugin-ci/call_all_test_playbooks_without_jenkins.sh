@@ -7,7 +7,6 @@ export BUILD_NUMBER=$(date '+%Y-%m-%dT%H-%M-%S')
 TEST_DIRECTORY="examples"
 TEST_PATTERN="test*"
 LOG_DIRECTORY=/tmp/ansible-junit-logs
-REPORT_DIRECTORY="$SELF/htmlreport"
 export JUNIT_TASK_RELATIVE_PATH=$PWD
 
 function Usage() {
@@ -72,7 +71,6 @@ do
     if [[ $local_rc -ne 0 ]]; then
         rc=1
     fi
-    perl generate_output/junit2html.pl $BUILD_NUMBER $LOG_DIRECTORY $TEST_DIRECTORY $REPORT_DIRECTORY
 done
 
 

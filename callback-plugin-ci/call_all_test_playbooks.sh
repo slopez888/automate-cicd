@@ -18,6 +18,4 @@ done
 
 rc=$?
 
-perl generate_output/junit2html.pl $BUILD_NUMBER ../../ansible_junit_logs test_matrix ../../html
-
 exit $rc
