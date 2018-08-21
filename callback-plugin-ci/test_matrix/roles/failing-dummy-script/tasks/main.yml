@@ -1,0 +1,28 @@
+---
+- block:
+  - name: copy dummy script to destination
+    become: true
+    copy:
+      src: files/script-configure.sh
+      dest: "{{ script_path }}"
+      mode: 0755
+    when: script_path is defined
+
+- name: Write rc 1 into rc file
+  become: True
+  copy:
+    dest: "{{ script_dir_name }}/{{ script_name }}.rc"
+    content: 1
+
+- name: Write stderr
+  become: True
+  copy:
+    dest: "{{ script_dir_name }}/{{ script_name }}.stderr"
+    content: "{{ script_name }} dummy fail"
+
+- name: Remove stdout
+  become: True
+  file:
+    path: "{{ script_dir_name }}/{{ script_name }}.stdout"
+    state: absent
+

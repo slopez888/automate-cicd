@@ -1,0 +1,4 @@
+htmlreport/
+*.retry
+*.pdf
+*.pyc

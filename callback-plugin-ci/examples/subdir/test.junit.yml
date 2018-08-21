@@ -1,0 +1,39 @@
+- name: test asserts
+  hosts: all
+  gather_facts: yes
+  ignore_errors: yes # making sure that the tests go through completely
+  tasks:
+          - name: task succeeds and test succeeds
+            assert:
+              that:
+                - "1 == 1"
+              msg: "successful task and successful test"
+          - name: task succeeds and test succeeds despite EXPECTED FAILURE
+            assert:
+              that:
+                - "1 == 1"
+              msg: "successful task and successful test"
+          - name: task succeeds but test fails due to TOGGLE RESULT
+            assert:
+              that:
+                - "1 == 1"
+              msg: "successful task and failed test"
+          - name: task fails and test fails UNLESS ignored
+            fail:
+                    msg: "failed task and failed test UNLESS ignored"
+          - name: task fails but test succeeds due to EXPECTED FAILURE
+            assert:
+              that:
+                - "1 != 1"
+              msg: "failed task and successful test"
+          - name: task fails but test succeeds due to TOGGLE RESULT UNLESS ignored
+            assert:
+              that:
+                - "1 != 1"
+              msg: "failed task and successful test UNLESS ignored"
+          - name: task skipped and test skipped
+            assert:
+              that:
+                - "1 != 1"
+              msg: "skipped task and skipped test"
+            when: false

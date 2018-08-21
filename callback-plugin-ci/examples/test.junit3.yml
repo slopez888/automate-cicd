@@ -1,0 +1,7 @@
+- name: mambo number 3
+  hosts: all
+  gather_facts: no
+  ignore_errors: yes # making sure that the tests go through completely
+  tasks:
+  - name: include a set of tasks for test3
+    include_tasks: tasks/tasks3i.yml

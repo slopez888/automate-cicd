@@ -1,0 +1,27 @@
+- name: mambo number 2
+  hosts: all
+  gather_facts: no
+  ignore_errors: yes # making sure that the tests go through completely
+  tasks:
+          - name: task succeeds and test succeeds _TWO_
+            debug:
+                    msg: "successful task and successful test2"
+          - name: task succeeds and test succeeds despite EXPECTED FAILURE _TWO_
+            debug:
+                    msg: "successful task and successful test2"
+          - name: task succeeds but test fails due to TOGGLE RESULT _TWO_
+            debug:
+                    msg: "successful task and failed test2"
+          - name: task fails and test fails UNLESS ignored _TWO_
+            fail:
+                    msg: "failed task and failed test UNLESS ignored2"
+          - name: task fails but test succeeds due to EXPECTED FAILURE _TWO_
+            fail:
+                    msg: "failed task and successful test2"
+          - name: task fails but test succeeds due to TOGGLE RESULT UNLESS ignored _TWO_
+            fail:
+                    msg: "failed task and successful test UNLESS ignored2"
+          - name: task skipped and test skipped _TWO_
+            fail:
+                    msg: "skipped task and skipped test2"
+            when: false
