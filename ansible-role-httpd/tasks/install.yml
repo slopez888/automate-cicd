@@ -1,0 +1,7 @@
+---
+- name: Install httpd
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ apache_packages }}"
+  become: true
