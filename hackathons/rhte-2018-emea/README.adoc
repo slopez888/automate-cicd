@@ -1,3 +1,58 @@
 = CI/CD Hackathon for EMEA RHTE 2018
 
-TODO: document the Hackathon
+== Goal
+This lab is intended to expose you to the basic components of a continuous integration/continuous delivery (CI/CD) setup for Ansible playbooks and roles, and enable you to join us in the effort to work out a set of best practices.
+
+Depending on you initial proficiency, you can either try out the existing set-up and tests or expand and improve them – or do something inbetween.
+
+=== Minimum take-home message
+
+If everything goes according to plan, after the lab, _every_ attendee should 
+
+* be able to explain what _CI/CD_ is
+* know what _Git_ and _Jenkins_ are, and how they can interact in this context
+* be able to perform basic configuration of a _Jenkins project_
+* know what a _Jenkinsfile_ does
+* have ran at least one test of a playbook
+* have heard about _Molecule_
+
+== CI/CD basics
+
+**TODO** copy some stuff from "the internet"
+
+== Lab environment
+
+The lab environment consists of a number of servers (not all of them running on dedicated machines) fulfilling the roles that are often found in a CI/CD environent.
+
+=== Bastion host
+
+This is the main place to work from. From here, you can check out the git repositories, run playbooks, etc.
+
+=== Jenkins server
+
+https://en.wikipedia.org/wiki/Jenkins_(software)[Jenkins] is an extremely popular CI tool that allows for automated building and testing of a codebase
+
+=== Ansible Tower
+
+Tower is mostly there to give advanced attendees more options for experimentation. 
+
+=== A managed host
+
+This is the target of the playboks we're 
+
+=== Git server
+
+THis is where you get the git repos used in this lab from – it's also the place your Jenkins Project should probably point to.
+
+== Instructions
+
+=== getting started
+
+==== git setup
+
+**TODO** I don't know how much of that is actually necessary. 
+
+1. create a ssh key `$ ssh-keygen` (choose the default suggestions)
+1. add key to github account
+1. `$ git config --global user.name "Jim Whitehurst"`
+1. `$ git config --global user.email "jim@redhat.com"
