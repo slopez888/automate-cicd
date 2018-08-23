@@ -5,7 +5,7 @@ This lab is intended to expose you to the basic components of a continuous integ
 
 Depending on you initial proficiency, you can either try out the existing set-up and tests or expand and improve them – or do something inbetween.
 
-=== Minimum take-home message
+=== Minimal take-home message
 
 If everything goes according to plan, after the lab, _every_ attendee should 
 
@@ -15,6 +15,8 @@ If everything goes according to plan, after the lab, _every_ attendee should
 * know what a _Jenkinsfile_ does
 * have ran at least one test of a playbook
 * have heard about _Molecule_
+
+Of course, we hope that you leave this session with more new ideas than that. If you feel inspired to continue working on this, head over to https://github.com/redhat-cop/automate-cicd[GitHub] and join the https://mojo.redhat.com/community/communities-at-red-hat/management/automation-community-of-practice[Automation Community of Practice].
 
 == CI/CD basics
 
@@ -26,7 +28,7 @@ The lab environment consists of a number of servers (not all of them running on 
 
 === Bastion host
 
-This is the main place to work from. From here, you can check out the git repositories, run playbooks, etc.
+This is the main place to work from for this lab. From here, you can check out the git repositories, run playbooks, etc.
 
 === Jenkins server
 
@@ -56,3 +58,17 @@ THis is where you get the git repos used in this lab from – it's also the plac
 1. add key to github account
 1. `$ git config --global user.name "Jim Whitehurst"`
 1. `$ git config --global user.email "jim@redhat.com"
+1. check out repos **TODO**
+
+==== Jenkins setup
+
+You find a playbook that you can use to finish the set-up of the Jenkins server. **TODO** What steps exactly?
+There are some minor changes necessary to make it fully functional, so, please,
+
+* make sure your project points to the right server
+* and to the right repository
+* **TODO**
+
+=== Start testing
+
+**TODO**
