@@ -1,4 +1,5 @@
 = Developer Instructions =
+:toc:
 
 This document for the people developing the lab for the Hackathon, and can be ignored by "simple" users or participants of the Hackathon.
 
@@ -44,7 +45,7 @@ CAUTION: don't merge into master but into the *development* branch!
 Once your changes are within the *development* branch, if you re-provision the DEV
 CI/CD lab within RHPDS, it will use your changes.
 
-== Testing ==
+=== Testing changes to the environment ===
 
 I've sent some https://github.com/sborenst/ansible_agnostic_deployer/files/2306216/prepare-dev-env.tar.gz[scripts to generate locally an inventory file] usable for your specific environment (you need to regenerate the inventory file after each destruction/re-creation of the DEV environment).
 
