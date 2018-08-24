@@ -24,7 +24,10 @@ Of course, we hope that you leave this session with more new ideas than that. If
 
 == Lab environment
 
-The lab environment consists of a number of servers (not all of them running on dedicated machines) fulfilling the roles that are often found in a CI/CD environent.
+The lab environment consists of a number of servers (not all of them running on dedicated machines) fulfilling the roles that are often found in a CI/CD environment.
+It has been initially jointly created by the AMS and EMEA teams for the RHTE 2018 sessions.
+
+For mor information, check out the https://github.com/sborenst/ansible_agnostic_deployer/tree/development[Ansible agnostic deployer] repo.
 
 === Bastion host
 
@@ -40,11 +43,28 @@ Tower is mostly there to give advanced attendees more options for experimentatio
 
 === A managed host
 
-This is the target of the playboks we're 
+This is the target of the playboks we're testing.
 
 === Git server
 
 THis is where you get the git repos used in this lab from – it's also the place your Jenkins Project should probably point to.
+
+=== How to connect
+
+All servers in this environment have an internal and an external name using the GUID associated to your environment on RHPDS:
+
+- an external name: *NAME*.*GUID*.example.opentlc.com
+- an internal name: *NAME*.*GUID*.internal
+
+The servers have following names:
+
+- bastion - this is the host through which you can easily connect to all the other ones.
+- tower1 - the Ansible Tower server
+- cicd1 - The CI/CD server (or build and test host) with Jenkins and Gogs pre-installed
+* the Jenkins server is available under http://cicd1.GUID.example.opentlc.com:8080, the user is _admin_ (with the usual password)
+- app1 and appdb1 - two "playground" hosts
+
+You may connect to the bastion host using the credentials given to you (by e-mail or GUID grabber) and from there jump to the other servers.
 
 == Instructions
 
