@@ -1,3 +1,94 @@
 = CI/CD Hackathon for EMEA RHTE 2018
 
-TODO: document the Hackathon
+== Goal
+This lab is intended to expose you to the basic components of a continuous integration/continuous delivery (CI/CD) setup for Ansible playbooks and roles, and enable you to join us in the effort to work out a set of best practices.
+
+Depending on you initial proficiency, you can either try out the existing set-up and tests or expand and improve them – or do something inbetween.
+
+=== Minimal take-home message
+
+If everything goes according to plan, after the lab, _every_ attendee should 
+
+* be able to explain what _CI/CD_ is
+* know what _Git_ and _Jenkins_ are, and how they can interact in this context
+* be able to perform basic configuration of a _Jenkins project_
+* know what a _Jenkinsfile_ does
+* have ran at least one test of a playbook
+* have heard about _Molecule_
+
+Of course, we hope that you leave this session with more new ideas than that. If you feel inspired to continue working on this, head over to https://github.com/redhat-cop/automate-cicd[GitHub] and join the https://mojo.redhat.com/community/communities-at-red-hat/management/automation-community-of-practice[Automation Community of Practice].
+
+== CI/CD basics
+
+**TODO** copy some stuff from "the internet"
+
+== Lab environment
+
+The lab environment consists of a number of servers (not all of them running on dedicated machines) fulfilling the roles that are often found in a CI/CD environment.
+It has been initially jointly created by the AMS and EMEA teams for the RHTE 2018 sessions.
+
+For mor information, check out the https://github.com/sborenst/ansible_agnostic_deployer/tree/development[Ansible agnostic deployer] repo.
+
+=== Bastion host
+
+This is the main place to work from for this lab. From here, you can check out the git repositories, run playbooks, etc.
+
+=== Jenkins server
+
+https://en.wikipedia.org/wiki/Jenkins_(software)[Jenkins] is an extremely popular CI tool that allows for automated building and testing of a codebase
+
+=== Ansible Tower
+
+Tower is mostly there to give advanced attendees more options for experimentation. 
+
+=== A managed host
+
+This is the target of the playboks we're testing.
+
+=== Git server
+
+THis is where you get the git repos used in this lab from – it's also the place your Jenkins Project should probably point to.
+
+=== How to connect
+
+All servers in this environment have an internal and an external name using the GUID associated to your environment on RHPDS:
+
+- an external name: *NAME*.*GUID*.example.opentlc.com
+- an internal name: *NAME*.*GUID*.internal
+
+The servers have following names:
+
+- bastion - this is the host through which you can easily connect to all the other ones.
+- tower1 - the Ansible Tower server
+- cicd1 - The CI/CD server (or build and test host) with Jenkins and Gogs pre-installed
+* the Jenkins server is available under http://cicd1.GUID.example.opentlc.com:8080, the user is _admin_ (with the usual password)
+- app1 and appdb1 - two "playground" hosts
+
+You may connect to the bastion host using the credentials given to you (by e-mail or GUID grabber) and from there jump to the other servers.
+
+== Instructions
+
+=== getting started
+
+==== git setup
+
+**TODO** I don't know how much of that is actually necessary. 
+
+1. create a ssh key `$ ssh-keygen` (choose the default suggestions)
+1. add key to github account
+1. `$ git config --global user.name "Jim Whitehurst"`
+1. `$ git config --global user.email "jim@redhat.com"
+1. check out repos **TODO**
+
+==== Jenkins setup
+
+You find a playbook that you can use to finish the set-up of the Jenkins server. **TODO** What steps exactly?
+There are some minor changes necessary to make it fully functional, so, please,
+
+* make sure your project points to the right server
+* and to the right repository
+* **TODO**
+
+=== Start testing
+
+**TODO**
