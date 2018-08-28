@@ -1,6 +1,8 @@
 = CI/CD Hackathon for EMEA RHTE 2018
+:toc:
 
 == Goal
+
 This lab is intended to expose you to the basic components of a continuous integration/continuous delivery (CI/CD) setup for Ansible playbooks and roles, and enable you to join us in the effort to work out a set of best practices.
 
 Depending on you initial proficiency, you can either try out the existing set-up and tests or expand and improve them – or do something inbetween.
@@ -27,29 +29,9 @@ Of course, we hope that you leave this session with more new ideas than that. If
 The lab environment consists of a number of servers (not all of them running on dedicated machines) fulfilling the roles that are often found in a CI/CD environment.
 It has been initially jointly created by the AMS and EMEA teams for the RHTE 2018 sessions.
 
-For mor information, check out the https://github.com/sborenst/ansible_agnostic_deployer/tree/development[Ansible agnostic deployer] repo.
+TIP: if you're curious, check out the https://github.com/sborenst/ansible_agnostic_deployer/tree/development[Ansible agnostic deployer] repo, but it won't help you for this hackathon, so do it later.
 
-=== Bastion host
-
-This is the main place to work from for this lab. From here, you can check out the git repositories, run playbooks, etc.
-
-=== Jenkins server
-
-https://en.wikipedia.org/wiki/Jenkins_(software)[Jenkins] is an extremely popular CI tool that allows for automated building and testing of a codebase
-
-=== Ansible Tower
-
-Tower is mostly there to give advanced attendees more options for experimentation. 
-
-=== A managed host
-
-This is the target of the playboks we're testing.
-
-=== Git server
-
-THis is where you get the git repos used in this lab from – it's also the place your Jenkins Project should probably point to.
-
-=== How to connect
+=== Lab overview
 
 All servers in this environment have an internal and an external name using the GUID associated to your environment on RHPDS:
 
@@ -59,36 +41,55 @@ All servers in this environment have an internal and an external name using the 
 The servers have following names:
 
 - bastion - this is the host through which you can easily connect to all the other ones.
-- tower1 - the Ansible Tower server
+- tower1 - the Ansible Tower server (it has a few pre-configured structures to help you get started)
+* the Tower server is available under http://tower1.GUID.example.opentlc.com, the user is _admin_ (with the usual password). Tower is mostly there to give advanced attendees more options for experimentation, and has been setup with a few defaults structures.
 - cicd1 - The CI/CD server (or build and test host) with Jenkins and Gogs pre-installed
-* the Jenkins server is available under http://cicd1.GUID.example.opentlc.com:8080, the user is _admin_ (with the usual password)
-- app1 and appdb1 - two "playground" hosts
+* the Jenkins server is available under http://cicd1.GUID.example.opentlc.com:8080, the user is _admin_ (with the usual password); https://en.wikipedia.org/wiki/Jenkins_(software)[Jenkins] is an extremely popular CI tool that allows for automated building and testing of a codebase
+* the Gogs server is available under http://cicd1.GUID.example.opentlc.com (FIXME validate the Gogs URL, TODO add user and note about password); https://gogs.io/docs[Gogs] is a painless self-hosted Git service written in Go by Google (Go, go, go!).
+- app1 and appdb1 - two "playground" hosts for you to test "stuff", the name implies a usage but you're really free to do what you want on those (they are connected to some standard RHEL repositories).
 
-You may connect to the bastion host using the credentials given to you (by e-mail or GUID grabber) and from there jump to the other servers.
+=== Lab connection
+
+You may:
+
+. connect to the bastion host via SSH using the credentials given to you (by e-mail or GUID grabber),
++
+NOTE: it should have been fixed, but don't be surprised if the user doesn't have a home directory.
++
+. become root using `sudo -i`,
+. from there jump to the other servers using the fully qualified _internal_ name (the user will be `ec2-user` but SSH is configured in such a way that you don't need to care).
+
+TODO: add link to or copy boilerplate from GPTE for the GUID grabber.
+
 
 == Instructions
 
 === getting started
 
-==== git setup
+We'll assume in the following that you're already connected via SSH to the bastion host.
 
-**TODO** I don't know how much of that is actually necessary. 
+Depending on what you want to do, you have two options:
 
-1. create a ssh key `$ ssh-keygen` (choose the default suggestions)
-1. add key to github account
-1. `$ git config --global user.name "Jim Whitehurst"`
-1. `$ git config --global user.email "jim@redhat.com"
-1. check out repos **TODO**
+The easy way:: if you don't plan to provide extensions and just want to test the available examples (or don't have a GitHub account), you just can clone the repo with the examples on the bastion host `git clone https://github.com/redhat-cop/automate-cicd.git`, `cd automate-cicd/hackathons/rhte-2018-emea` and go from there into the first chosen showcase (see below).
+The recommended way:: we'd really love to see your suggestions for improvements, hence you should:
+.. fork the repository https://github.com/redhat-cop/automate-cicd into your own GitHub account,
+.. clone the forked repository onto the bastion `git clone https://github.com/GITHUB-ACCOUNT/automate-cicd.git` (you can of course also work with SSH but then you'll need to handle the SSH keys)
+.. `cd automate-cicd/hackathons/rhte-2018-emea`
+.. configure Git with your name and e-mail: `git config --global user.name "Jim Whitehurst"` and `git config --global user.email "jim@redhat.com"`,
+.. create a development branch `git checkout -b GITHUBACCOUNT-BRANCH-PURPOSE`,
+.. try the examples and extend them (see below), or create your own example,
+.. and finally push your extensions into a pull request `git push --set-upstream origin GITHUBACCOUNT-BRANCH-PURPOSE`
+.. during the hackathon and later, create a pull request based on your branch.
 
-==== Jenkins setup
+CAUTION: everything you'll do will get **LOST** if you don't push your changes to your repository before the end of the Hackathon!
 
-You find a playbook that you can use to finish the set-up of the Jenkins server. **TODO** What steps exactly?
-There are some minor changes necessary to make it fully functional, so, please,
+TIP: the repository will continue to live after the hackathon, so don't hesitate to work further on your branch after the Hackathon, and create a pull request (or more) later on. And if you have questions, the https://red.ht/autocop[Automation CoP] is here to help you (also in the channel #automation-cop on Rocket.Chat).
 
-* make sure your project points to the right server
-* and to the right repository
-* **TODO**
+=== Available showcases
 
-=== Start testing
+The following approaches are available to you, you may just use them and learn from them, or fix, improve or extend them, or even add your own approach if you've already gathered experience:
 
-**TODO**
+- link:ansible-role-httpd[a buggy Apache role you can use to try your tests]
+- link:callback-plugin-ci[use Ansible and the junit callback plug-in to test anything with Jenkins]
+- link:example-molecule[use Molecule to test your roles]
+- link:tower-plugin-jenkins[use the Tower plug-in for Jenkins]
