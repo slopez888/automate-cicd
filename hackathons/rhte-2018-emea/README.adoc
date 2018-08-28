@@ -22,7 +22,22 @@ Of course, we hope that you leave this session with more new ideas than that. If
 
 == CI/CD basics
 
-**TODO** copy some stuff from "the internet"
+.According to https://en.wikipedia.org/wiki/CI/CD[Wikipedia]:
+[quote, English Wikipedia - CI/CD article]
+In https://en.wikipedia.org/wiki/Software_engineering[software engineering], *CI/CD* or *CICD* may refer to the combined practices of https://en.wikipedia.org/wiki/Continuous_integration[continuous integration] and https://en.wikipedia.org/wiki/Continuous_delivery[continuous delivery].
+
+This written, as we automate more and more and profess https://en.wikipedia.org/wiki/Infrastructure_as_Code[Infrastructure as Code] using Ansible, we also need to treat our playbooks as what they are, code, and test them accordingly, meaning automatically and regularly, because experience has shown that it is the only way to avoid technical debt and make sure that our infrastructure is properly tested before it goes in production.
+
+Continuous Integration, which is the focus of this lab, offers following advantages:
+
+- Automated testing during build creation, and potentially at deployment time.
+- Gives fast feedback on errors
+* before they impact operations.
+* before changes are forgotten, cutting on root cause analysis
+- Allow for continuous improvement by taking ITIL Problem Management lessons into new tests.
+- Enable stress-less and successful rapid deployments, as test coverage grows, up to continuous deployment.
+- Basis for a DevOps approach.
+
 
 == Lab environment
 
