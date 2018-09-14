@@ -57,10 +57,10 @@ The servers have following names:
 
 - bastion - this is the host through which you can easily connect to all the other ones.
 - tower1 - the Ansible Tower server (it has a few pre-configured structures to help you get started)
-* the Tower server is available under http://tower1.GUID.example.opentlc.com, the user is _admin_ (with the usual password). Tower is mostly there to give advanced attendees more options for experimentation, and has been setup with a few defaults structures.
+* the Tower server is available under https://tower1.GUID.example.opentlc.com, the user is _admin_ (with the usual password). Tower is mostly there to give advanced attendees more options for experimentation, and has been setup with a few defaults structures.
 - cicd1 - The CI/CD server (or build and test host) with Jenkins and Gogs pre-installed
-* the Jenkins server is available under http://cicd1.GUID.example.opentlc.com:8080, the user is _admin_ (with the usual password); https://en.wikipedia.org/wiki/Jenkins_(software)[Jenkins] is an extremely popular CI tool that allows for automated building and testing of a codebase
-* the Gogs server is available under http://cicd1.GUID.example.opentlc.com (FIXME validate the Gogs URL, TODO add user and note about password); https://gogs.io/docs[Gogs] is a painless self-hosted Git service written in Go by Google (Go, go, go!).
+* the Jenkins server is available under https://cicd1.GUID.example.opentlc.com:8443, the user is _admin_ (with the usual password); https://en.wikipedia.org/wiki/Jenkins_(software)[Jenkins] is an extremely popular CI tool that allows for automated building and testing of a codebase
+* the Gogs server is available under http://cicd1.GUID.example.opentlc.com:3000 (FIXME validate the Gogs URL, TODO add user and note about password); https://gogs.io/docs[Gogs] is a painless self-hosted Git service written in Go by Google (Go, go, go!).
 - app1 and appdb1 - two "playground" hosts for you to test "stuff", the name implies a usage but you're really free to do what you want on those (they are connected to some standard RHEL repositories).
 
 === Lab connection
