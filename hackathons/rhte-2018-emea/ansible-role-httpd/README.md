@@ -1,6 +1,27 @@
 # Ansible Role: Apache 2.x
 
-An Ansible Role that installs Apache 2.x on RHEL/CentOS/Fedora
+An Ansible role that installs Apache 2.x on RHEL/CentOS/Fedora and configure a default index.html
+with a predefined message. 
+
+This role contains a couple of errors, so the first times you run the playbook, it will fail until you fix them.
+
+The bugs you will have to fix are:
+
+* A syntax bug
+* A failed task
+* Lint problems
+
+So take advantage of these bugs, and create some tests to verify that:
+
+1. The playbook ends well.
+2. There is no lint errors.
+3. Apache (httpd) is installed.
+4. Apache (httpd) is running.
+5. Apache is listening in the ports specified in the playbook.
+6. Apache content matches the message defined in the var `apache_hello_message_index`.
+
+**NOTE:**
+Don't complicate yourself with a complex playbook full of vars, try to reuse the example playbook you will find below and focus on the fun stuff: CI/CD ;).
 
 ## Requirements
 
@@ -105,14 +126,13 @@ None.
 ## Example Playbook
 
     ---
-    - hosts: httpd_hosts
+    - hosts: apps
       vars:
         apache_listen_ip: "*"
         apache_listen_port: 80
         apache_listen_port_ssl: 443
         apache_create_vhosts: true
-        apache_vhosts:
-          - {servername: "example.com", documentroot: "/var/www/vhosts/example_com"}
+        # apache_hello_message_index: "Welcome to the CI/CD Hackathon for EMEA RHTE 2018!!"
       roles:
        - { role: ansible-role-httpd }
 
