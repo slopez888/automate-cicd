@@ -126,7 +126,7 @@ None.
 ## Example Playbook
 
     ---
-    - hosts: apps
+    - hosts: app1
       vars:
         apache_listen_ip: "*"
         apache_listen_port: 80
