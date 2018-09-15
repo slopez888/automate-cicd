@@ -1,0 +1,6 @@
+---
+# tasks file for install_wildfly_standalone
+
+- include: 00_install_java.yml
+- include: 01_install_binaries.yml
+- include: 02_configure_service.yml

@@ -1,0 +1,15 @@
+---
+- name: '[Configure Service] Create service file from template'
+  template:
+    src: service.service.j2
+    dest: "/etc/systemd/system/wildfly-{{ instance_name }}.service"
+
+- name: '[Configure Service] Reload systemd daemon'
+  systemd:
+    daemon_reload: yes
+
+- name: '[Configure Service] Enable and restart service to apply changes'
+  systemd:
+    name: wildfly-{{ instance_name }}
+    state: restarted
+    enabled: yes
