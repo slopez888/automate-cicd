@@ -3,7 +3,7 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: rhel:7
+    image: centos:7
 lint:
   name: yamllint
 provisioner:
