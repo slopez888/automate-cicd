@@ -1,8 +1,8 @@
 [Molecule](http://molecule.readthedocs.io/en/latest/) is a framework to implement automated tests for Ansible playbooks and roles.
 
 In this repository you can find two Ansible role configured to run Molecule:
-- [ansible-role-banner](hackathons/rhte-2018-emea/roles/ansible-role-httpd)
-- [ansible-role-httpd](hackathons/rhte-2018-emea/roles/ansible-role-banner)
+- [ansible-role-banner](../roles/ansible-role-banner)
+- [ansible-role-httpd](../roles/ansible-role-httpd)
 
 
 These roles have a **molecule** directory with the following components:
