@@ -1,0 +1,11 @@
+---
+# Change the host according to your Ansible inventory.
+- hosts: app1
+  vars:
+    apache_listen_ip: "*"
+    apache_listen_port: 80
+    apache_listen_port_ssl: 443
+    apache_create_vhosts: true
+    # apache_hello_message_index: "Welcome to the CI/CD Hackathon for EMEA RHTE 2018!!"
+  roles:
+    - { role: ansible-role-httpd }
