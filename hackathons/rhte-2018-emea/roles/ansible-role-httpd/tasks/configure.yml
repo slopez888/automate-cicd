@@ -29,6 +29,6 @@
     owner: root
     group: root
     mode: 0644
-  when: apache_vhosts is defined 
+  when: apache_vhosts is defined
   with_items: "{{ apache_vhosts }}"
   become: true
