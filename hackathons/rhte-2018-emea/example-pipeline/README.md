@@ -2,7 +2,7 @@ This is an example of how to leverage Ansible and the [Jenkins Pipeline as Code]
 
 ## Accessing Jenkins Server
 
-As part of the provisioning of the lab, a Jenkins Continuous Integration server was deployed. The user interface can be accessed by navigating to [https://cicd1.GUID.example.opentlc.com:8443](https://cicd1.GUID.example.opentlc.com:8443). Credentials for logging in will be provided by your instructors.
+As part of the provisioning of the lab, a Jenkins Continuous Integration server was deployed. The user interface can be accessed by navigating to [https://cicd1.GUID.rhte.opentlc.com:8443](https://cicd1.GUID.rhte.opentlc.com:8443). Credentials for logging in will be provided by your instructors.
 
 ## Creating A Jenkins Pipeline Job
 
@@ -42,7 +42,7 @@ THe example pipeline executed the [ansible-role-banner](../roles/ansible-role-ba
 Login to the bastion via SSH to get access to the environment
 
 ```
-ssh USER@bastion.GUID.example.opentlc.com
+ssh USER@bastion.GUID.rhte.opentlc.com
 ```
 
 Once logged into the bastion, elevate to the _root_ user.
