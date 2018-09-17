@@ -1,3 +1,0 @@
-[linux_boxen]
-fedora_box_1 ansible_host=localhost
-fedora_box_2 ansible_host=localhost

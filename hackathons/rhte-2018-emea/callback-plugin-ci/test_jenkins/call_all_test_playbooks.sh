@@ -5,7 +5,7 @@ cd $(dirname $0)
 
 export JUNIT_FAIL_ON_IGNORE=true
 export JUNIT_OUTPUT_DIR="${WORKSPACE:-/tmp}/ansible_junit_logs/$BUILD_NUMBER"
-# export JUNIT_TASK_CLASS=true # gets rid of '.yml:<line>' (but breaks the HTML report script)
+# export JUNIT_TASK_CLASS=true # gets rid of '.yml:<line>'
 export JUNIT_TASK_RELATIVE_PATH=$PWD
 
 export TEST_DIRECTORY="${JENKINS_ANSIBLE_DIRECTORY:-examples}"
