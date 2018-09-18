@@ -107,7 +107,7 @@ TIP: the repository will continue to live after the hackathon, so don't hesitate
 
 The following approaches are available to you, you may just use them and learn from them, or fix, improve or extend them, or even add your own approach if you've already gathered experience:
 
-- link:ansible-role-httpd[a buggy Apache role you can use to try your tests]
+- link:example-pipeline[An example of an Ansible playbook being run from a Jenkins Pipeline. Contains instructions for setting up Jenkins Pipeline]
 - link:callback-plugin-ci[use Ansible and the junit callback plug-in to test anything with Jenkins]
 - link:example-molecule[use Molecule to test your roles]
 - link:tower-plugin-jenkins[use the Tower plug-in for Jenkins]
