@@ -1,0 +1,24 @@
+---
+driver:
+  name: docker
+platforms:
+  - name: instance
+    image: centos:7
+lint:
+  name: yamllint
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ../common/playbook.yml
+    prepare: ../common/prepare.yml
+  lint:
+    name: ansible-lint
+scenario:
+  name: docker
+verifier:
+  name: testinfra
+  directory: ../tests
+  options:
+    sudo: true
+  lint:
+    name: flake8

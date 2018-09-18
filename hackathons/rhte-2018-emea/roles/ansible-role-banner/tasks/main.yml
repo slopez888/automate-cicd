@@ -1,5 +1,6 @@
 ---
 - name: Ensure Post-Login Message of the Day file is correct
+  become: True
   template:
     src: motd.j2
     dest: /etc/motd

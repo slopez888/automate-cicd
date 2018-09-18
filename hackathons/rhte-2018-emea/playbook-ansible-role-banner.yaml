@@ -1,0 +1,4 @@
+---
+- hosts: app1
+  roles:
+    - { role: ansible-role-banner }
