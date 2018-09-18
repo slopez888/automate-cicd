@@ -1,0 +1,14 @@
+---
+- name: "[Global] Install Wildfly"
+  hosts: db
+  become: true
+  roles:
+    - role: geerlingguy.postgresql
+
+- name: "[Global] Install Wildfly"
+  hosts: appserver
+  become: true
+  gather_facts: false
+  roles:
+    - install_wildfly_standalone
+    - { role: configure_postgresql_datasource, postgresql_target_host: "{{ hostvars[groups['db'][0]]['inventory_hostname'] }}"}

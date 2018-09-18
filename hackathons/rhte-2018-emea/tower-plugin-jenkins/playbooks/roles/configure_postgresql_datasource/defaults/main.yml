@@ -1,0 +1,18 @@
+---
+# defaults file for configure_postgresql_datasource
+
+wildfly_bin_path: "/opt/wildfly/default"
+wildfly_modules_path: "{{ wildfly_bin_path }}/modules"
+wildfly_user: "wildfly"
+wildfly_group: "wildfly"
+wildfly_http_management_port: "9990"
+
+postgresql_target_host: "localhost"
+postgresql_target_port: "5432"
+postgresql_target_database: "example"
+postgresql_binaries_url: "https://jdbc.postgresql.org/download/postgresql-9.2-1004.jdbc41.jar"
+postgresql_datasource_name: "postgresDS"
+postgresql_datasource_jndi_name: "java:jboss/datasources/postgresDS"
+postgresql_datasource_connection_url: "jdbc:postgresql://{{ postgresql_target_host }}:{{ postgresql_target_port }}/{{ postgresql_target_database }}"
+postgresql_datasource_user: "wildfly"
+postgresql_datasource_password: "wildfly"

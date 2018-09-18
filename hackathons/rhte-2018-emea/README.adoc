@@ -9,7 +9,7 @@ Depending on you initial proficiency, you can either try out the existing set-up
 
 === Minimal take-home message
 
-If everything goes according to plan, after the lab, _every_ attendee should 
+If everything goes according to plan, after the lab, _every_ attendee should
 
 * be able to explain what _CI/CD_ is
 * know what _Git_ and _Jenkins_ are, and how they can interact in this context
@@ -110,10 +110,11 @@ The following approaches are available to you, you may just use them and learn f
 - link:example-pipeline[An example of an Ansible playbook being run from a Jenkins Pipeline. Contains instructions for setting up Jenkins Pipeline]
 - link:callback-plugin-ci[use Ansible and the junit callback plug-in to test anything with Jenkins]
 - link:example-molecule[use Molecule to test your roles]
-- link:tower-plugin-jenkins[use the Tower plug-in for Jenkins]
+- link:tower-plugin-jenkins[use the Tower plug-in for Jenkins and integrate Molecule testing in a pipeline]
 
 === Miscellaneous notes
 
 - if you have issues with Firefox getting into a timeout during TLS handshake with the Tower server, it might be due to https://bugzilla.mozilla.org/show_bug.cgi?id=1474963[Bug 1474963 - Firefox stalls after TLS handshake on self signed certificate]. You have two choices:
 * use another browser (Chromium works fine)
 * call the following command: `cd ~/.mozilla/firefox/*.default/; while certutil -d sql:. -L | grep localhost; do certutil -d sql:. -D -n localhost; done` (`localhost` is the issue here because it's duplicated in the certificate database).
+

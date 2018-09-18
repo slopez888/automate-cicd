@@ -1,0 +1,13 @@
+[Unit]
+Description=Wildfly instance {{ instance_name }}
+Requires=network.target local-fs.target remote-fs.target
+After=syslog.target network.target local-fs.target remote-fs.target
+
+[Service]
+Type=forking
+Environment=JBOSS_CONF={{ wildfly_bin_path }}/{{ instance_name }}/docs/contrib/scripts/init.d/wildfly.conf
+ExecStart={{ wildfly_bin_path }}/{{ instance_name }}/docs/contrib/scripts/init.d/wildfly-init-redhat.sh start
+ExecStop={{ wildfly_bin_path }}/{{ instance_name }}/docs/contrib/scripts/init.d/wildfly-init-redhat.sh stop
+
+[Install]
+WantedBy=multi-user.target

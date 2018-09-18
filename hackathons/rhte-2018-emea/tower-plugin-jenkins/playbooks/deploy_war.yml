@@ -1,0 +1,8 @@
+---
+
+- name: "[Global] Deploy WAR"
+  hosts: appserver
+  become: true
+  gather_facts: false
+  roles:
+    - deploy_war

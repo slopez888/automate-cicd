@@ -1,0 +1,88 @@
+---
+
+- name: '[Install Binaries] Ensure group exists'
+  group:
+    name: "{{ wildfly_group }}"
+    state: present
+
+- name: '[Install Binaries] Ensure user exists'
+  user:
+    name: "{{ wildfly_user }}"
+    comment: "Wildfly {{ instance_name }} user"
+    group: "{{ wildfly_group }}"
+
+- name: '[Install Binaries] Check if instance already exists'
+  stat:
+    path: "{{ wildfly_bin_path }}/{{ instance_name }}"
+  register: wildfly_instance_path
+
+- name: '[Install Binaries] Create binaries directory'
+  file:
+    path: "{{ wildfly_bin_path }}"
+    state: directory
+    owner: "{{ wildfly_user }}"
+    group: "{{ wildfly_group }}"
+    mode: "0755"
+
+- name: "[Install Binaries] Download and unzip Wildfly Binaries"
+  block:
+    - name: '[Install Binaries] Download Wildfly binaries ZIP'
+      get_url:
+        url: "{{ wildfly_binaries_url }}"
+        dest: "{{ wildfly_bin_path }}"
+      ignore_errors: True
+      register: download_result
+
+    - name: '[Install Binaries] Unzip Wildfly binaries file'
+      unarchive:
+        copy: no
+        src: "{{ wildfly_bin_path }}/{{ download_result.dest | basename }}"
+        dest: "{{ wildfly_bin_path }}"
+        owner: "{{ wildfly_user }}"
+        group: "{{ wildfly_group }}"
+        mode: "0700"
+
+    - name: '[Install Binaries] Get binaries path'
+      find:
+        paths: "{{ wildfly_bin_path }}"
+        file_type: directory
+        patterns: "wildfly*"
+      register: find_result
+
+    - name: '[Install Binaries] Rename binaries to match instance name'
+      command: "mv {{ find_result.files[0]['path'] }} {{ wildfly_bin_path }}/{{ instance_name }}"
+
+  when: wildfly_instance_path.stat.isdir is not defined
+
+- name: '[Install Binaries] Ensure user owns instance directory'
+  file:
+    path: "{{ wildfly_bin_path }}/{{ instance_name }}"
+    state: directory
+    owner: "{{ wildfly_user }}"
+    group: "{{ wildfly_group }}"
+    recurse: yes
+    mode: "0755"
+
+- name: '[Install Binaries] Create link to Java'
+  file:
+    src: "/usr/lib/jvm/{{ java_version }}/jre"
+    dest: "{{ wildfly_bin_path }}/{{ instance_name }}/java"
+    owner: "{{ wildfly_user }}"
+    group: "{{ wildfly_group }}"
+    state: link
+
+- name: '[Install Binaries] Create logs directory'
+  file:
+    path: "{{ wildfly_logs_path }}/{{ instance_name }}"
+    state: directory
+    owner: "{{ wildfly_user }}"
+    group: "{{ wildfly_group }}"
+    mode: "0755"
+
+- name: '[Install Binaries] Create wildfly.conf from template'
+  template:
+    src: wildfly.conf.j2
+    dest: "{{ wildfly_bin_path }}/{{ instance_name }}/docs/contrib/scripts/init.d/wildfly.conf"
+    owner: "{{ wildfly_user }}"
+    group: "{{ wildfly_group }}"
+    mode: "0700"

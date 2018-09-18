@@ -1,0 +1,38 @@
+#################################################
+# General configuration for the init.d scripts, #
+# not necessarily for WildFly itself.           #
+# default location: /etc/default/wildfly        #
+#################################################
+
+## Location of JDK
+JAVA_HOME="{{ wildfly_bin_path }}/{{ instance_name }}/java"
+
+## Location of WildFly
+JBOSS_HOME="{{ wildfly_bin_path }}/{{ instance_name }}"
+
+## The username who should own the process.
+JBOSS_USER={{ wildfly_user }}
+
+## The mode WildFly should start, standalone or domain
+JBOSS_MODE=standalone
+
+## Configuration for standalone mode
+JBOSS_CONFIG=standalone.xml
+
+## Configuration for domain mode
+# JBOSS_DOMAIN_CONFIG=domain.xml
+# JBOSS_HOST_CONFIG=host-master.xml
+
+## The amount of time to wait for startup
+# STARTUP_WAIT=60
+
+## The amount of time to wait for shutdown
+# SHUTDOWN_WAIT=60
+
+## Location to keep the console log
+JBOSS_CONSOLE_LOG="{{ wildfly_logs_path }}/{{ instance_name }}/console.log"
+
+## Additionals args to include in startup
+JBOSS_OPTS="-Djboss.management.http.port={{ wildfly_http_management_port }} -Djboss.ajp.port={{ wildfly_ajp_port }} -Djboss.http.port={{ wildfly_http_port }} -Djboss.https.port={{ wildfly_https_port }} -b 0.0.0.0"
+
+export JBOSS_PIDFILE="/var/run/wildfly/{{ instance_name }}.pid"
