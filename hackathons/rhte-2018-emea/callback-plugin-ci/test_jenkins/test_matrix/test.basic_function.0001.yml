@@ -3,7 +3,7 @@
 # This is just a basic example
 
 
-- hosts: linux_boxen
+- hosts: all
   name: TEST.0001
   vars_files:
     - vars.yml

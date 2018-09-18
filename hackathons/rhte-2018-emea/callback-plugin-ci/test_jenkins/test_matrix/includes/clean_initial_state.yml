@@ -1,0 +1,13 @@
+---
+
+- name: clean up possible leftovers from previous tests
+  debug: msg=placeholder
+
+# Example:
+#- name: remove possible leftover files of other tests
+#  file: "{{ item }}"
+#  state: absent
+#  with_items:
+#    - "{{ script_dir_name }}/testscript.rc"
+#    - "{{ script_dir_name }}/testscript.stdout"
+#    - "{{ script_dir_name }}/testscript.stderr"

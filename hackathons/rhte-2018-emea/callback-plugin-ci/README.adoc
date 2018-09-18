@@ -2,82 +2,29 @@
 
 This is a generic example of a CI setup as it was used in a consulting engagement.
 
-== Prerequisites ==
+== Getting started ==
 
-Install some libraries:
+Follow the instructions in https://github.com/redhat-cop/automate-cicd/blob/ericzolf-create-callback-job/hackathons/rhte-2018-emea/README.adoc[this README] and log in to bastion: `sudo ssh bastion.GUID.rhte.opentlc.com`.
 
-[source,bash]
------
-dnf install python2-junit_xml perl-XML-LibXML
------
+== Jenkins setup ==
 
-Also, your user needs to be able to ssh into localhost.
+1. `cd automate-cicd/hackathons/rhte-2018-emea/callback-plugin-ci`
+1. Replace `GUID` and `PASSWORD` and run `sudo ansible-playbook -i cicd1.GUID.internal setup_jenkins_job.yml -e 'usual_password=PASSWORD' -e 'guid=GUID'` to set up a Jenkins Project.
+1. Open https://cicd1.GUID.rhte.opentlc.com:8443 in a browser and login as _admin_ (usual password)
 
-== Run tests ==
+== Triggering builds ==
 
-To check basic functionality, run  `./call_all_test_playbooks_without_jenkins.sh`.
+To run your test-playbooks, open the project in Jenkins' WebGUI (https://cicd1.GUID.rhte.opentlc.com:8443/job/callback-plugin-ci/) and click on _Build with Parameters_. 
+You can then select a directory and a pattern to chose which tests are ran. Keep all on default to trigger everything in `test_matrix`.
 
-== Folders ==
+== Developing Tests ==
 
-----
-├── ansible.cfg                                 # local Ansible configuration
-├── call_all_test_playbooks.sh                  #
-├── call_all_test_playbooks_without_jenkins.sh  # scripts to start a test run
-├── callback_plugins                            # https://docs.ansible.com/ansible
-│   │                                           # /2.5/plugins/callback.html
-│   ├── junit2.py
-│   └── junit2.pyc
-├── examples                                    # default folder for test run
-│   ├── subdir
-│   │   ├── test.junit.retry
-│   │   └── test.junit.yml
-│   ├── tasks
-│   │   └── tasks3i.yml
-│   ├── test.junit2.yml
-│   └── test.junit3.yml
-├── generate_output                             # todo
-│   ├── css
-│   │   └── junit.css
-│   ├── js
-│   │   ├── jquery-3.3.1.min.js
-│   │   └── junit.js
-│   └── junit2html.pl
-├── hosts                                       # inventory file
-├── htmlreport                                  # folder for test results
-│   ├── 2018-07-30T15-12-22                     # automatically generated
-│   │   ├── index.html
-│   │   ├── playbooks
-│   │   │   ├── subdir
-│   │   │   │   └── test.junit.html
-│   │   │   ├── tasks
-│   │   │   │   └── tasks3i.html
-│   │   │   ├── test.junit2.html
-│   │   │   └── test.junit3.html
-│   │   ├── test.junit2.html
-│   │   ├── test.junit3.html
-│   │   └── test.junit.html
-│   ├── css
-│   │   └── junit.css
-│   └── js
-│       ├── jquery-3.3.1.min.js
-│       └── junit.js
-├── README.adoc
-└── test_matrix                                 # put your actual tests here
-    ├── files
-    │   └── script-configure.sh
-    ├── group_vars
-    │   ├── all.yml
-    │   └── linux_boxen.yml
-    ├── host_vars
-    ├── includes
-    │   └── clean_initial_state.yml
-    ├── roles
-    │   ├── failing-dummy-script
-    │   │   └── tasks
-    │   │       └── main.yml
-    │   └── successful-dummy-script
-    │       └── tasks
-    │           └── main.yml
-    ├── test.basic_function.0001.yml
-    └── vars.yml
------
+You can now write your own tests.
+Go to `automate-cicd/hackathons/rhte-2018-emea/callback-plugin-ci/test_jenkins/test_matrix` and add test playbooks.
+The pattern defined in the previous section is applied to the file name of the playbooks, so use a name that fits `test*.yml` to stay with the default example.
+Before the testes are available from within Jenkins, you need to re-run the playbook from the _Jenkins setup_ section above.
+
+== Junit plugin ==
+
+Some background information: In this environment, Ansible is configured to use the junit https://docs.ansible.com/ansible/2.5/plugins/callback.html[callback plugin].
+The job output is written to `ansible_junit_logs/` and then picked up by Jenkins. You can see the corresponding settings in https://cicd1.GUID.rhte.opentlc.com:8443/job/callback-plugin-ci/configure under _Post-build Actions_.

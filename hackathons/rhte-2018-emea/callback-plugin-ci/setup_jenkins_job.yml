@@ -1,0 +1,99 @@
+---
+
+# call with `sudo ansible-playbook -i cicd1.GUID.internal, setup_jenkins_job.yml -e 'usual_password=PWD' -e guid=GUI`
+
+- hosts: all
+  become: true
+
+  vars:
+    jenkins_homedir: /var/lib/jenkins
+    test_project_name: callback-plugin-ci
+    test_target_vms: "app1,appdb1"
+    source_dir: test_jenkins
+
+  tasks:
+
+  - name: generate a Jenkins job config from our template
+    template:
+      src: "{{ test_project_name }}_config.xml"
+      dest: "{{ test_project_name }}.local_config.xml"
+    delegate_to: localhost
+    become: no
+
+  - name: generate an inventory with the correct GUID in ansible_host
+    template:
+      src: "ansible_template_inventory"
+      dest: "{{ source_dir }}/ansible_local_inventory"
+    delegate_to: localhost
+    become: no
+
+  - name: Create job directory
+    file:
+      owner: jenkins
+      group: jenkins
+      path: "{{ jenkins_homedir }}/jobs/{{ test_project_name }}"
+      state: directory
+      recurse: true
+
+  - name: copy our Jenkins job config to the Jenkins server
+    copy:
+      src: "{{ test_project_name }}.local_config.xml"
+      dest: "{{ jenkins_homedir }}/jobs/{{ test_project_name }}/config.xml"
+      owner: jenkins
+      group: jenkins
+      force: true
+    notify: jenkins_reload_from_disk
+
+  - name: Ensure workspaceDir is set correctly
+    lineinfile:
+      path: /var/lib/jenkins/config.xml
+      regexp: "^ *<workspaceDir>"
+      line: "  <workspaceDir>${JENKINS_HOME}/workspace/${ITEM_FULL_NAME}</workspaceDir>"
+      insertbefore: "^ *<buildsDir>"
+    notify: jenkins_reload_from_disk
+
+  - name: Create job workspace
+    file:
+      owner: jenkins
+      group: jenkins
+      path: "{{ jenkins_homedir }}/workspace/{{ test_project_name }}/{{ item }}"
+      state: directory
+      recurse: true
+    loop:
+      - git
+      - ansible_junit_logs
+
+  - name: Synchronize test playbooks folder
+    synchronize:
+      src: "{{ source_dir }}"
+      dest: "{{ jenkins_homedir }}/workspace/{{ test_project_name }}/git/"
+      recursive: true
+      delete: true
+      # --exclude is not working
+      rsync_opts: ['--exclude="*.swp" --delete-excluded']
+
+  - name: Set file permissions
+    file:
+      path: "{{ jenkins_homedir }}/workspace/{{ test_project_name }}/git"
+      owner: jenkins
+      group: jenkins
+      recurse: true
+
+  - name: install Python library python2-junit_xml required by Junit callback
+    yum:
+      name: python2-junit_xml
+      state: present
+
+  handlers:
+
+  - name: jenkins_reload_from_disk
+    uri:
+      url: https://{{ ansible_default_ipv4.address }}:8443/reload
+      method: POST
+      user: admin
+      password: "{{ usual_password }}"
+      force_basic_auth: true
+      status_code: 302
+      validate_certs: false
+
+

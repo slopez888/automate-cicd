@@ -2,3 +2,4 @@ htmlreport/
 *.retry
 *.pdf
 *.pyc
+*[_.]local[._]*
