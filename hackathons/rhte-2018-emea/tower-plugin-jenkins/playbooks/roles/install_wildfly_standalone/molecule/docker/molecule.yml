@@ -7,14 +7,8 @@ platforms:
     privileged: True
     port_bindings:
       - 8080:8080
-      - 8443:8443
-      - 9990:9990
-      - 8009:8009
     published_ports:
       - 0.0.0.0:8080:8080/TCP
-      - 0.0.0.0:8443:8443/TCP
-      - 0.0.0.0:9990:9990/TCP
-      - 0.0.0.0:8009:8009/TCP
     command: "/usr/sbin/init"
 lint:
   name: yamllint
