@@ -32,7 +32,7 @@ The job output is written to `ansible_junit_logs/` and then picked up by Jenkins
 == Including SCM ==
 
 Now that the basics are establisehd, you probably wonder "_What's next?_".
-One possibility – albeit not a very is to go to http://cicd1.GUID.rhte.opentlc.com:3000, log in as user _cicduser1_ and create a repository named REPONAME (chose anything).
+One possibility – albeit not a very practical one – is to go to http://cicd1.GUID.rhte.opentlc.com:3000, log in as user _cicduser1_ and create a repository named REPONAME (chose anything).
 You can initialise it any way you want.
 
 Now we can for example create a mock test of the current state of the repo by adding a file called `to_be_tested.txt` containing a zero.
@@ -67,4 +67,5 @@ If you save and then run a build (default parameters) you should see a successfu
 Changing the content of `to_be_tested.txt` in Gogs and then runing a build leads to a failure.
 
 *Note* that this is not a recomended way of polling a git repo (ideally, you would want to use Jenkins' SCM integration); it should be good enough for this demo, though.
+
 *Note2:* `setup_jenkins_job.yml` overwrites these manual changes to the Project config.
