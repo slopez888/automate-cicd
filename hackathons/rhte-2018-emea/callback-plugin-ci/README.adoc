@@ -23,3 +23,8 @@ You can now write your own tests.
 Go to `automate-cicd/hackathons/rhte-2018-emea/callback-plugin-ci/test_jenkins/test_matrix` and add test playbooks.
 The pattern defined in the previous section is applied to the file name of the playbooks, so use a name that fits `test*.yml` to stay with the default example.
 Before the testes are available from within Jenkins, you need to re-run the playbook from the _Jenkins setup_ section above.
+
+== Junit plugin ==
+
+Some background information: In this environment, Ansible is configured to use the junit https://docs.ansible.com/ansible/2.5/plugins/callback.html[callback plugin].
+The job output is written to `ansible_junit_logs/` and then picked up by Jenkins. You can see the corresponding settings in https://cicd1.GUID.rhte.opentlc.com:8443/job/callback-plugin-ci/configure under _Post-build Actions_.
