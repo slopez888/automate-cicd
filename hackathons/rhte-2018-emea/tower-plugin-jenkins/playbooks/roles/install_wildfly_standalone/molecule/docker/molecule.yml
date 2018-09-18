@@ -25,6 +25,7 @@ scenario:
     - lint
     - destroy
     - create
+    - prepare
     - converge
     - destroy
 verifier:
