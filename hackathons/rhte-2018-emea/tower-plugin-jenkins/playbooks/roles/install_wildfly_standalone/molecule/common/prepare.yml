@@ -10,3 +10,4 @@
       become: true
       with_items:
         - libselinux-python
+        - unzip
