@@ -1,0 +1,4 @@
+---
+# tasks file for deploy_war
+
+- include: 01_deploy_war.yml
