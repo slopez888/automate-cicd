@@ -11,4 +11,4 @@
   gather_facts: false
   roles:
     - install_wildfly_standalone
-    - { role: configure_postgresql_datasource, postgresql_target_host: "{{ hostvars[groups['db'][0]]['ansible_host'] }}"}
+    - { role: configure_postgresql_datasource, postgresql_target_host: "{{ hostvars[groups['db'][0]]['inventory_hostname'] }}"}

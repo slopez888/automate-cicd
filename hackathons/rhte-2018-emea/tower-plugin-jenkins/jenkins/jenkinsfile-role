@@ -1,0 +1,13 @@
+pipeline {
+    agent any
+    stages {
+        stage('build'){
+            steps {
+                git 'https://github.com/redhat-cop/automate-cicd.git'
+                dir('./hackathons/rhte-2018-emea/tower-plugin-jenkins/playbooks/roles/install_wildfly_standalone') {
+                   sh 'molecule --debug test -s docker'
+                }
+            }
+        }
+    }
+}
