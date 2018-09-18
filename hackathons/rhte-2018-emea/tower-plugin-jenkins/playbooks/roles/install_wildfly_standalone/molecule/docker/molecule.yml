@@ -21,6 +21,12 @@ provisioner:
     name: ansible-lint
 scenario:
   name: docker
+  test_sequence:
+    - lint
+    - destroy
+    - create
+    - converge
+    - destroy
 verifier:
   name: testinfra
   directory: ../tests
