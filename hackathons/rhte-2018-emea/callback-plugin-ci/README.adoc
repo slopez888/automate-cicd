@@ -31,7 +31,7 @@ The job output is written to `ansible_junit_logs/` and then picked up by Jenkins
 
 == Including SCM ==
 
-Now that the basics are establisehd, you probably wonder "_What's next?_".
+Now that the basics are established, you probably wonder "_What's next?_".
 One possibility – albeit not a very practical one – is to go to http://cicd1.GUID.rhte.opentlc.com:3000, log in as user _cicduser1_ and create a repository named REPONAME (chose anything).
 You can initialise it any way you want.
 
@@ -51,21 +51,14 @@ The following playbook can be used to test this addition (create it, e.g., as `t
 
 Don't forget to run the playbook `setup_jenkins_job.yml` after having updated the test.
 
-Now, you could for example add the following as a _Execute shell_ build step (in the _Build_ section of your Project's config) before the step executing `call_all_test_playbooks.sh`:
+Now, you need to add the repository to your build:
 
-----
-cd git/
-if [ ! -d REPONAME ]
-then
-  git clone http://localhost:3000/cicduser1/REPONAME.git
-fi
-cd test
-git pull
-----
+1. Go to https://cicd1.GUID.rhte.opentlc.com:8443/job/callback-plugin-ci/configure and select _Source Code Management_
+2. Chose _Git_ and enter http://localhost:3000/cicduser1/REPONAME.git in the _Repository URL_ field
+3. leave the other fields on their default values
+4. In the field _Additional Behaviours_, pick _Check out to a sub-directory_ from the drop-down and enter `git/REPONAME` as a local sub-directory
 
-If you save and then run a build (default parameters) you should see a successful result.
+If you save and then run a build (default parameters) you should see Jenkins fetching your repository followed by successful tests in the build's console output.
 Changing the content of `to_be_tested.txt` in Gogs and then runing a build leads to a failure.
 
-*Note* that this is not a recomended way of polling a git repo (ideally, you would want to use Jenkins' SCM integration); it should be good enough for this demo, though.
-
-*Note2:* `setup_jenkins_job.yml` overwrites these manual changes to the Project config.
+*Note:* `setup_jenkins_job.yml` overwrites these manual changes to the Project config.
