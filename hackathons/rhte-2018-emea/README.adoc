@@ -9,7 +9,7 @@ Depending on you initial proficiency, you can either try out the existing set-up
 
 === Minimal take-home message
 
-If everything goes according to plan, after the lab, _every_ attendee should 
+If everything goes according to plan, after the lab, _every_ attendee should
 
 * be able to explain what _CI/CD_ is
 * know what _Git_ and _Jenkins_ are, and how they can interact in this context
@@ -107,4 +107,4 @@ The following approaches are available to you, you may just use them and learn f
 - link:ansible-role-httpd[a buggy Apache role you can use to try your tests]
 - link:callback-plugin-ci[use Ansible and the junit callback plug-in to test anything with Jenkins]
 - link:example-molecule[use Molecule to test your roles]
-- link:tower-plugin-jenkins[use the Tower plug-in for Jenkins]
+- link:tower-plugin-jenkins[use the Tower plug-in for Jenkins and integrate Molecule testing in a pipeline]
