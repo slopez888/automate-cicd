@@ -72,7 +72,8 @@ In this section, two job templates using the provided playbooks are created. Onc
   - The Acme credential
   - An integer survey parameter named jenkins_build.
   - The following extra var, where GUID has to be the value of your environment:
-  ```
+
+```
 artifact_url: "https://cicd1.GUID.rhte.opentlc.com:8443/job/deploy-hibernate-quickstart/{{ jenkins_build }}/artifact/target/hibernate.war"
 ```
 
