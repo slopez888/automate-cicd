@@ -4,7 +4,7 @@ This is a generic example of a CI setup as it was used in a consulting engagemen
 
 == Getting started ==
 
-Follow the instructions in https://github.com/redhat-cop/automate-cicd/blob/ericzolf-create-callback-job/hackathons/rhte-2018-emea/README.adoc[this README] and log in to bastion: `sudo ssh bastion.GUID.rhte.opentlc.com`.
+Follow the instructions in https://github.com/redhat-cop/automate-cicd/blob/master/hackathons/rhte-2018-emea/README.adoc[this README] and log in to bastion: `sudo ssh bastion.GUID.rhte.opentlc.com`.
 
 == Jenkins setup ==
 
