@@ -16,7 +16,7 @@ pipeline {
 
         stage('Dry run') {
             steps {
-                sh  "ansible-playbook -u ec2-user -i app1 hackathons/rhte-2018-emea/playbook-ansible-role-banner.yaml --check"
+                sh  "ansible-playbook -u ec2-user -i app1, hackathons/rhte-2018-emea/playbook-ansible-role-banner.yaml --check"
             }
         }
 
