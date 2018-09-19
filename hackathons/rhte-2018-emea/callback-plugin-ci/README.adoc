@@ -22,7 +22,7 @@ You can then select a directory and a pattern to chose which tests are ran. Keep
 You can now write your own tests.
 Go to `automate-cicd/hackathons/rhte-2018-emea/callback-plugin-ci/test_jenkins/test_matrix` and add test playbooks.
 The pattern defined in the previous section is applied to the file name of the playbooks, so use a name that fits `test*.yml` to stay with the default example.
-Before the testes are available from within Jenkins, you need to re-run the playbook from the _Jenkins setup_ section above.
+Before the tests are available from within Jenkins, you need to re-run the playbook from the _Jenkins setup_ section above.
 
 == Junit plugin ==
 
