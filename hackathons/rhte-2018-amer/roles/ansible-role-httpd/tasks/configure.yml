@@ -1,0 +1,34 @@
+---
+- name: Configure httpd.
+  lineinfile:
+    dest: "{{ apache_server_root }}/conf/{{ apache_daemon }}.conf"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items: "{{ apache_ports_configuration_items }}"
+
+- name: Check whether certificates defined in vhosts exist.
+  stat: path={{ item.certificate_file }}
+  register: apache_ssl_certificates
+  with_items: "{{ apache_vhosts_ssl }}"
+
+- name: Add httpd vhosts configuration.
+  template:
+    src: "{{ apache_vhosts_template }}"
+    dest: "{{ apache_conf_path }}/{{ apache_vhosts_filename }}"
+    owner: root
+    group: root
+    mode: 0644
+  when: apache_create_vhosts
+  become: true
+
+- name: Add sample index.html
+  template:
+    src: index.html.j2
+    dest: "{{ item.documentroot }}/index.html"
+    owner: root
+    group: root
+    mode: 0644
+  when: apache_vhosts is defined
+  with_items: "{{ apache_vhosts }}"
+  become: true

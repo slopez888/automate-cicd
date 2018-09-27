@@ -1,0 +1,5 @@
+---
+path_to_curl: /usr/bin/curl
+# where the <script>.{rc,stdout,stderr,log} files are located
+script_dir_name: /var/tmp
+target_dir: /tmp/target

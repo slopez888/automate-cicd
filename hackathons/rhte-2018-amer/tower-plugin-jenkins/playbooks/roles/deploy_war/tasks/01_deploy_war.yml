@@ -1,0 +1,28 @@
+---
+
+- name: '[Deploy WAR] Build base CLI command.'
+  set_fact:
+    base_cli_command: "{{ wildfly_bin_path }}/bin/jboss-cli.sh -c --controller=localhost:{{ wildfly_http_management_port }} --output-json command="
+
+- name: '[Deploy WAR] Create temporary directory'
+  file:
+    path: "{{ temp_workspace }}"
+    state: directory
+
+- name: '[Deploy WAR] Download artifact'
+  get_url:
+    url: "{{ artifact_url }}"
+    dest: "{{ temp_workspace }}"
+    validate_certs : false
+  register: download_result
+
+- name: '[Deploy "WAR] Deploy WAR Artifact'
+  command: >
+    {{ base_cli_command }}"deploy
+    {{ download_result.dest }}
+    --force"
+
+- name: '[Deploy WAR] Remove temporary directory'
+  file:
+    path: "{{ temp_workspace }}"
+    state: absent

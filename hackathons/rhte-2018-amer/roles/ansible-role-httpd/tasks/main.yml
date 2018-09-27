@@ -1,0 +1,42 @@
+---
+- name: Define apache_packages.
+  set_fact:
+    apache_packages: "{{ __apache_packages | list }}"
+  when: apache_packages is not defined
+
+# Setup/install tasks.
+- include_tasks: "install.yml"
+
+# Figure out what version of Apache is installed.
+- name: Get installed version of Apache.
+  command: >
+    "{{ apache_daemon_path }}{{ apache_daemon }}" "-v"
+  changed_when: false
+  check_mode: no
+  register: _apache_version
+
+# Error 1. Typo in the variable
+- name: Create apache_version variable.
+  set_fact:
+    apache_version: "{{ _apache_version_XX.stdout.split()[2].split('/')[1] }}"
+    # apache_version: "{{ _apache_version.stdout.split()[2].split('/')[1] }}"
+
+- name: Include variables when Apache 2.2
+  include_vars: apache-22.yml
+  when: "apache_version.split('.')[1] == '2'"
+
+- name: Include variables when Apache 2.4
+  include_vars: apache-24.yml
+  when: "apache_version.split('.')[1] == '4'"
+
+# Configure Apache.
+- include_tasks: "configure.yml"
+
+# Error 2. This task will fail unless id run with 'become: true'
+- name: Ensure httpd is started.
+  systemd:
+    name: "{{ apache_service }}"
+    state: "{{ apache_state }}"
+    enabled: yes
+  become: false
+  #  become: true

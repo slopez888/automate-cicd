@@ -1,0 +1,30 @@
+---
+
+- name: '[Configure Datasource] Build base CLI command.'
+  set_fact:
+    base_cli_command: "{{ wildfly_bin_path }}/bin/jboss-cli.sh -c --controller=localhost:{{ wildfly_http_management_port }} --output-json command="
+
+- name: '[Configure Datasource] Check if the datasource exists already'
+  command: "{{ base_cli_command }}\"/subsystem=datasources/data-source={{ postgresql_datasource_name }}:query\""
+  register: ds_query_result
+  ignore_errors: True
+  
+- name: '[Configure Datasource] Add driver and create datasource'
+  block:
+    - name: '[Configure Datasource] Add PostgreSQL Driver'
+      command: "{{ base_cli_command }}\"/subsystem=datasources/jdbc-driver=postgresql:add(driver-module-name=org.postgresql, driver-name=postgresql)\""
+
+    - name: '[Configure Datasource] Create basic PosgreSQL Datasource'
+      command: >
+        {{ base_cli_command }}"data-source
+        add --enabled=true
+        --name={{ postgresql_datasource_name }}
+        --jndi-name={{ postgresql_datasource_jndi_name }}
+        --connection-url={{ postgresql_datasource_connection_url }}
+        --driver-name=postgresql
+        --user-name={{ postgresql_datasource_user }}
+        --password={{ postgresql_datasource_password }}
+        --valid-connection-checker-class-name=org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker
+        --exception-sorter-class-name=org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter"
+
+  when: '"WFLYCTL0216" in ds_query_result.stdout'

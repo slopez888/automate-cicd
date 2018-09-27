@@ -1,0 +1,21 @@
+---
+# defaults file for install_wildfly_standalone
+
+wildfly_bin_path: "/opt/wildfly"
+wildfly_logs_path: "/var/log/wildfly"
+wildfly_user: "wildfly"
+wildfly_group: "wildfly"
+wildfly_binaries_url: "http://download.jboss.org/wildfly/14.0.1.Final/wildfly-14.0.1.Final.zip"
+
+java_version: "java-1.8.0-openjdk"
+java_packages:
+  - "{{ java_version }}-devel.x86_64"
+  - "{{ java_version }}.x86_64"
+
+instance_name: "default"
+
+
+wildfly_http_management_port: "9990"
+wildfly_http_port: "8080"
+wildfly_https_port: "8443"
+wildfly_ajp_port: "8009"

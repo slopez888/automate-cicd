@@ -1,0 +1,6 @@
+---
+# defaults file for deploy_war
+
+wildfly_bin_path: "/opt/wildfly/default"
+wildfly_http_management_port: "9990"
+temp_workspace: "/tmp/deploy"

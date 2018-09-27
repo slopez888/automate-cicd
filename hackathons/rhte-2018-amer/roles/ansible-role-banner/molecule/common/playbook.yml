@@ -1,0 +1,9 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: true
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - role: ansible-role-banner

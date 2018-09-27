@@ -1,0 +1,64 @@
+= CI example =
+
+This is a generic example of a CI setup as it was used in a consulting engagement.
+
+== Getting started ==
+
+Follow the instructions in https://github.com/redhat-cop/automate-cicd/blob/master/hackathons/rhte-2018-emea/README.adoc[this README] and log in to bastion: `sudo ssh bastion.GUID.rhte.opentlc.com`.
+
+== Jenkins setup ==
+
+1. `cd automate-cicd/hackathons/rhte-2018-emea/callback-plugin-ci`
+1. Replace `GUID` and `PASSWORD` and run `sudo ansible-playbook -i cicd1.GUID.internal, setup_jenkins_job.yml -e 'usual_password=PASSWORD' -e 'guid=GUID'` to set up a Jenkins Project.
+1. Open https://cicd1.GUID.rhte.opentlc.com:8443 in a browser and login as _admin_ (usual password)
+
+== Triggering builds ==
+
+To run your test-playbooks, open the project in Jenkins' WebGUI (https://cicd1.GUID.rhte.opentlc.com:8443/job/callback-plugin-ci/) and click on _Build with Parameters_. 
+You can then select a directory and a pattern to chose which tests are ran. Keep all on default to trigger everything in `test_matrix`.
+
+== Developing Tests ==
+
+You can now write your own tests.
+Go to `automate-cicd/hackathons/rhte-2018-emea/callback-plugin-ci/test_jenkins/test_matrix` and add test playbooks.
+The pattern defined in the previous section is applied to the file name of the playbooks, so use a name that fits `test*.yml` to stay with the default example.
+Before the tests are available from within Jenkins, you need to re-run the playbook from the _Jenkins setup_ section above.
+
+== Junit plugin ==
+
+Some background information: In this environment, Ansible is configured to use the junit https://docs.ansible.com/ansible/2.5/plugins/callback.html[callback plugin].
+The job output is written to `ansible_junit_logs/` and then picked up by Jenkins. You can see the corresponding settings in https://cicd1.GUID.rhte.opentlc.com:8443/job/callback-plugin-ci/configure under _Post-build Actions_.
+
+== Including SCM ==
+
+Now that the basics are established, you probably wonder "_What's next?_".
+One possibility – albeit not a very practical one – is to go to http://cicd1.GUID.rhte.opentlc.com:3000, log in as user _cicduser1_ and create a repository named REPONAME (chose anything).
+You can initialise it any way you want.
+
+Now we can for example create a mock test of the current state of the repo by adding a file called `to_be_tested.txt` containing a zero.
+The following playbook can be used to test this addition (create it, e.g., as `test_matrix/test_repo.yml`)
+
+----
+---
+- name: test if our repo is ok
+  hosts: localhost
+
+  tasks:
+    - assert:
+        that:
+          -  "{{ lookup( 'file', '/var/lib/jenkins/workspace/callback-plugin-ci/git/REPONAME/to_be_tested.txt') }} ==  0"
+----
+
+Don't forget to run the playbook `setup_jenkins_job.yml` after having updated the test.
+
+Now, you need to add the repository to your build:
+
+1. Go to https://cicd1.GUID.rhte.opentlc.com:8443/job/callback-plugin-ci/configure and select _Source Code Management_
+2. Chose _Git_ and enter http://localhost:3000/cicduser1/REPONAME.git in the _Repository URL_ field
+3. leave the other fields on their default values
+4. In the field _Additional Behaviours_, pick _Check out to a sub-directory_ from the drop-down and enter `git/REPONAME` as a local sub-directory
+
+If you save and then run a build (default parameters) you should see Jenkins fetching your repository followed by successful tests in the build's console output.
+Changing the content of `to_be_tested.txt` in Gogs and then runing a build leads to a failure.
+
+*Note:* `setup_jenkins_job.yml` overwrites these manual changes to the Project config.

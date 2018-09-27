@@ -1,0 +1,32 @@
+---
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+    type: libvirt
+    options:
+      memory: 1024
+      cpus: 1
+lint:
+  name: yamllint
+platforms:
+  - name: rhel7
+    box: centos/7
+    groups:
+      - rhel
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ../common/playbook.yml
+    prepare: ../common/prepare.yml
+  lint:
+    name: ansible-lint
+scenario:
+  name: vagrant
+verifier:
+  name: testinfra
+  directory: ../tests
+  options:
+    sudo: true
+  lint:
+    name: flake8

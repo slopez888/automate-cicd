@@ -1,0 +1,25 @@
+---
+
+- name: '[Install Module] Create module directory'
+  file:
+    path: "{{ wildfly_modules_path }}/org/postgresql/main"
+    state: directory
+    owner: "{{ wildfly_user }}"
+    group: "{{ wildfly_group }}"
+    mode: "0755"
+
+- name: '[Install Module] Download postgresql JDBC driver binary'
+  get_url:
+    url: "{{ postgresql_binaries_url }}"
+    dest: "{{ wildfly_modules_path }}/org/postgresql/main"
+    owner: "{{ wildfly_user }}"
+    group: "{{ wildfly_group }}"
+  register: download_result
+
+- name: '[Install Module] Create module.xml from template'
+  template:
+    src: module.xml.j2
+    dest: "{{ wildfly_modules_path }}/org/postgresql/main/module.xml"
+    owner: "{{ wildfly_user }}"
+    group: "{{ wildfly_group }}"
+    mode: "0755"

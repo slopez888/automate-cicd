@@ -1,0 +1,19 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: rromannissen
+  description: Deploy WAR in Wildfly
+  company: Red Hat
+  license: "license (BSD, MIT)"
+  min_ansible_version: 2.4
+  platforms:
+  - name: EL
+    versions:
+    - 6
+    - 7
+  - name: Fedora
+    versions:
+    - all
+  galaxy_tags:
+    - wildfly

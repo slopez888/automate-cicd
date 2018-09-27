@@ -1,0 +1,74 @@
+= Developer Instructions =
+:toc:
+
+This document for the people developing the lab for the Hackathon, and can be ignored by "simple" users or participants of the Hackathon.
+
+We make the difference between:
+
+* environment development, which describes as it will have been setup for the participants
+* content development, which will be proposed to the participants as basis for the Hackathon
+
+== Starting the development environment ==
+
+IMPORTANT: BEFORE ordering the environment, upload/update your SSH key using
+https://account.opentlc.com/account/
+
+. Log-in to https://rhpds.redhat.com/ using your usual account _fname-redhat.com_
+. Click on your name and Change Group to the _rhpds-access-contributors_ group
+. Go to Services -> Catalgos -> All Services -> DevOps Team Development Catalog -> DEV - Ansible CICD Lab and order the service (wait roughly 20min)
+. You can then connect to the bastion host of the environment:
+
+------------------------------------------------------------------------
+ssh FNAME-redhat.com@bastion.GUID.example.opentlc.com
+------------------------------------------------------------------------
+
+== Develop further the environment ==
+
+This is how I did it, but feel free to adapt:
+
+------------------------------------------------------------------------
+git clone git@github.com:sborenst/ansible_agnostic_deployer.git
+cd ansible_agnostic_deployer
+git checkout --track origin/development
+git checkout -b ME-MY-DEV-BRANCH
+git push --set-upstream origin ME-MY-DEV-BRANCH
+------------------------------------------------------------------------
+
+Develop what needs to be developed with the usual `git add && git commit && git push`.
+
+TEST:: re-building an environment takes time so you should be pretty sure that your code is already quite solid (see below)
+
+Create a pull request towards the *development* branch of Sha's repo and accept someone else to review and accept the merge (it doesn't / shouldn't but can be me).
+
+CAUTION: don't merge into master but into the *development* branch!
+
+Once your changes are within the *development* branch, if you re-provision the DEV
+CI/CD lab within RHPDS, it will use your changes.
+
+=== Testing changes to the environment ===
+
+I've sent some https://github.com/sborenst/ansible_agnostic_deployer/files/2306216/prepare-dev-env.tar.gz[scripts to generate locally an inventory file] usable for your specific environment (you need to regenerate the inventory file after each destruction/re-creation of the DEV environment).
+
+Once you've done this, you can use the inventory file to test your changes before you commit/push them, using a command similar to:
+
+------------------------------------------------------------------------
+cd .../ansible_agnostic_deployer/ansible/configs/ansible-cicd-lab/
+ansible-playbook -i .../prepare-dev-env/ansible-cicd-lab.local.inventory post_software.yml \
+	--limit cicd1 -e ANSIBLE_REPO_PATH=../.. -e env_type=ansible-cicd-lab
+------------------------------------------------------------------------
+
+== Develop the participants content ==
+
+To the difference to the RHPDS environment definition, the participant content is taken from the separate Git repo https://github.com/redhat-cop/automate-cicd (under `hackathons/rhte-2018-emea`).
+
+The participant content won't be pre-installed but will be left for the participants to use and potentially improve, comment, etc.
+
+It will happen so, and you should similarly test it:
+
+. login to the bastion host
+. clone the Git repo with e.g. `git clone https://github.com/redhat-cop/automate-cicd.git`
+. and then deploy, play around with the content provided by you in this repo.
+
+You have write access to the repo but please work with pull requests so that we have some quality management and a fallback with another person having seen your code at least once. And take the review seriously before merging.
+
+NOTE: the participants won't have access and will need to fork the repo if they want to offer a pull request.

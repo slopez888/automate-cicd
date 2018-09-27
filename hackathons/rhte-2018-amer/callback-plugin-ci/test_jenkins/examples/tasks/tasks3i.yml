@@ -1,0 +1,22 @@
+- name: task succeeds and test succeeds _INCLUDE3_
+  debug:
+          msg: "successful task and successful test3i"
+- name: task succeeds and test succeeds despite EXPECTED FAILURE _INCLUDE3_
+  debug:
+          msg: "successful task and successful test3i"
+- name: task succeeds but test fails due to TOGGLE RESULT _INCLUDE3_
+  debug:
+          msg: "successful task and failed test3i"
+- name: task fails and test fails UNLESS ignored _INCLUDE3_
+  fail:
+          msg: "failed task and failed test UNLESS ignored3i"
+- name: task fails but test succeeds due to EXPECTED FAILURE _INCLUDE3_
+  fail:
+          msg: "failed task and successful test3i"
+- name: task fails but test succeeds due to TOGGLE RESULT UNLESS ignored _INCLUDE3_
+  fail:
+          msg: "failed task and successful test UNLESS ignored3i"
+- name: task skipped and test skipped _INCLUDE3_
+  fail:
+          msg: "skipped task and skipped test3i"
+  when: false

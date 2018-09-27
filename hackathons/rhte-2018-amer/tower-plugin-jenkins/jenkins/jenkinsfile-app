@@ -1,0 +1,30 @@
+pipeline {
+    agent {
+        label 'maven'
+    }
+    tools {
+        maven 'Maven 3.5.4'
+        jdk 'jdk8'
+    }
+    stages {
+        stage('build'){
+            steps {
+                git 'https://github.com/redhat-cop/automate-cicd.git'
+                dir('./hackathons/rhte-2018-emea/tower-plugin-jenkins/applications/hibernate/') {
+                   sh 'mvn package'
+                   archiveArtifacts 'target/hibernate.war'
+                }
+            }
+        }
+        stage('provision') {
+            steps {
+                ansibleTower credential: '', extraVars: '', importTowerLogs: true, importWorkflowChildLogs: false, inventory: '', jobTags: '', jobTemplate: 'install_wildfly', jobType: 'run', limit: '', removeColor: false, skipJobTags: '', templateType: 'job', towerServer: 'CICD Hackathon', verbose: false
+            }
+        }
+        stage('deploy') {
+            steps {
+                ansibleTower credential: '', extraVars: 'jenkins_build: $BUILD_NUMBER', importTowerLogs: true, importWorkflowChildLogs: false, inventory: '', jobTags: '', jobTemplate: 'deploy_war', jobType: 'run', limit: '', removeColor: false, skipJobTags: '', templateType: 'job', towerServer: 'CICD Hackathon', verbose: false
+            }
+        }
+    }
+}

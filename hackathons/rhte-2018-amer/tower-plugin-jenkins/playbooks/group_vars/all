@@ -1,0 +1,28 @@
+postgresql_target_database: hibernate
+postgresql_datasource_user: wildfly
+postgresql_datasource_password: wildfly
+
+postgresql_datasource_jndi_name: "java:jboss/datasources/HibernateQuickstartDS"
+postgresql_datasource_name: "HibernateQuickstartDS"
+
+postgresql_databases:
+  - name: "{{ postgresql_target_database }}"
+
+postgresql_users:
+  - name: "{{ postgresql_datasource_user }}"
+    password: "{{ postgresql_datasource_password }}"
+
+postgresql_global_config_options:
+  - option: unix_socket_directories
+    value: '{{ postgresql_unix_socket_directories | join(",") }}'
+  - option: listen_addresses
+    value: '*'
+
+# Host based authentication (hba) entries to be added to the pg_hba.conf. This
+# variable's defaults reflect the defaults that come with a fresh installation.
+postgresql_hba_entries:
+  - { type: host, database: all, user: all, address: '0.0.0.0/0', auth_method: md5 }
+  - { type: local, database: all, user: postgres, auth_method: peer }
+  - { type: local, database: all, user: all, auth_method: peer }
+  - { type: host, database: all, user: all, address: '127.0.0.1/32', auth_method: md5 }
+  - { type: host, database: all, user: all, address: '::1/128', auth_method: md5 }

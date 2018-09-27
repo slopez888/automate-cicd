@@ -1,0 +1,5 @@
+---
+# tasks file for configure_postgresql_datasource
+
+- include: 01_install_postgresql_module.yml
+- include: 02_configure_datasource.yml
