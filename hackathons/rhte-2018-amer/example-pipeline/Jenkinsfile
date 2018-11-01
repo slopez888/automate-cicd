@@ -16,13 +16,13 @@ pipeline {
 
         stage('Dry run') {
             steps {
-                sh  "ansible-playbook -u ec2-user  --private-key="~/.ssh/slopez-Tower-Workshop-key.pem" -i app1, hackathons/rhte-2018-emea/playbook-ansible-role-banner.yaml --check"
+                sh  "ansible-playbook -u ec2-user  --private-key=/var/lib/jenkins/.ssh/slopez-Tower-Workshop-key.pem -i app1, hackathons/rhte-2018-emea/playbook-ansible-role-banner.yaml --check"
             }
         }
 
         stage('Execute Playbook') {
             steps {
-                sh  "ansible-playbook -u ec2-user -i  --private-key"=~/.ssh/slopez-Tower-Workshop-key.pem" app1, hackathons/rhte-2018-emea/playbook-ansible-role-banner.yaml"
+                sh  "ansible-playbook -u ec2-user -i  --private-key=/var/lib/jenkins/.ssh/slopez-Tower-Workshop-key.pem app1, hackathons/rhte-2018-emea/playbook-ansible-role-banner.yaml"
             }
         }
     }
